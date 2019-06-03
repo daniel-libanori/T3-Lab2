@@ -4,12 +4,12 @@
 #include "struct.h"
 
 
-int verificar_se_placa_ja_existe(Carro* lstPrinc, Carro* novo){
+int verificar_se_placa_ja_existe(Carro* lstPrinc, char placa[7]){
 
     Carro* c;
 
     for(c=lstPrinc; c!=NULL;c=c->prox){
-        if(strcomp(novo->placa,c->placa)==0){
+        if(strcomp(placa,c->placa)==0){
             return 1;
         }
     }
@@ -19,13 +19,14 @@ int verificar_se_placa_ja_existe(Carro* lstPrinc, Carro* novo){
 
 }
 
-
-
-
-
-Carro* adicionar_lista_ord(Carro* lstPrinc, Carro* novo){
+Carro* adicionar_lista_ord(Carro* lstPrinc, int ano, char placa[7], char marca[20]){
 
     Carro* c;
+    Carro* novo = (Carro*)malloc(sizeof(Carro));
+    novo->ano = ano;
+    strcpy(novo->placa,placa);
+    strcpy(novo->marca,marca);
+
 
     if(lstPrinc == NULL){
         novo->prox = NULL;
@@ -47,6 +48,22 @@ Carro* adicionar_lista_ord(Carro* lstPrinc, Carro* novo){
         }
     }
 
+
+
+}
+
+
+Carro* busca_carro_lista(Carro* lstPrinc, char placa[7]){
+
+    Carro* c;
+
+    for(c=lstPrinc;c!=NULL;c=c->prox){
+        if(strcomp(placa,c->placa)==0){
+            return c;
+        }
+    }
+
+    return NULL;
 
 
 }
