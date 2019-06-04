@@ -2,34 +2,32 @@
 #define STRUCT_H
 
 
-typedef struct ponteiros{
+    typedef struct carro{
 
-    Arvore* arvPlac;
-    Arvore* arvMarc;
-    Arvore* arvAno;
-    Carro*  lstCar;
+        char placa[7];
+        int ano;
+        char marca[20];
+        struct carro* prox;
 
-
-}Ponteiros;
-
-
-typedef struct carro{
-
-    char placa[7];
-    int ano;
-    char marca[20];
-    Carro* prox;
-
-}Carro;
+    } Carro;
 
 
-typedef struct arvore{
+    typedef struct arvore{
 
-    Carro* car;
-    Arvore* esq;
-    Arvore* dir;
+        struct carro* car;
+        struct arvore* esq;
+        struct arvore* dir;
 
-}Arvore;
+    } Arvore;
+
+    typedef struct ponteiros{
+
+        struct arvore* arvPlac;
+        struct arvore* arvMarc;
+        struct arvore* arvAno;
+        struct carro*  lstCar;
+
+    } Ponteiros;
 
 
 #endif 

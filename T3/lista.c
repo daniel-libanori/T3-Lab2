@@ -9,7 +9,7 @@ int verificar_se_placa_ja_existe(Carro* lstPrinc, char placa[7]){
     Carro* c;
 
     for(c=lstPrinc; c!=NULL;c=c->prox){
-        if(strcomp(placa,c->placa)==0){
+        if(strcmp(placa,c->placa)==0){
             return 1;
         }
     }
@@ -34,31 +34,37 @@ Carro* adicionar_lista_ord(Carro* lstPrinc, int ano, char placa[7], char marca[2
         return lstPrinc;
     }
 
-    if(strcomp(novo->placa,lstPrinc->placa)>0){
+    if(strcmp(novo->placa, lstPrinc->placa)<0){
         novo->prox = lstPrinc;
         lstPrinc = novo;
         return lstPrinc;
     }
 
+    if(strcmp(novo->placa, lstPrinc->placa)>0){
+        lstPrinc->prox = novo;
+        novo->prox = NULL;
+        return lstPrinc;
+    }
+
     for(c=lstPrinc; c!=NULL; c=c->prox){
-        if(strcomp(novo->placa,c->prox->placa)>0){
+        
+        if(strcmp(novo->placa,c->prox->placa)<0){
             novo->prox = c->prox;
             c->prox = novo;
             return lstPrinc;
         }
     }
 
-
+    return lstPrinc;
 
 }
-
 
 Carro* busca_carro_lista(Carro* lstPrinc, char placa[7]){
 
     Carro* c;
 
     for(c=lstPrinc;c!=NULL;c=c->prox){
-        if(strcomp(placa,c->placa)==0){
+        if(strcmp(placa,c->placa)==0){
             return c;
         }
     }
@@ -66,4 +72,24 @@ Carro* busca_carro_lista(Carro* lstPrinc, char placa[7]){
     return NULL;
 
 
+}
+
+Carro* retirar_lista(Carro* lstPrinc, char placa[7]){
+
+    Carro* c = busca_carro_lista(lstPrinc,placa);   
+    Carro* cAnt;
+
+    if(c==lstPrinc){
+        lstPrinc=c->prox;
+        free(c);
+        return lstPrinc;
+    }
+
+    for(cAnt=lstPrinc; cAnt->prox != c; cAnt=cAnt->prox);
+    
+    cAnt->prox = c->prox;
+    free(c);
+    
+    return lstPrinc;
+    
 }
